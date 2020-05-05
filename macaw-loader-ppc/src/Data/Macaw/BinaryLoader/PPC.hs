@@ -14,6 +14,7 @@ module Data.Macaw.BinaryLoader.PPC
 where
 
 import qualified Control.Monad.Catch as X
+import qualified Data.BitVector.Sized as BV
 import qualified Data.ElfEdit as E
 import qualified Data.List.NonEmpty as NEL
 import qualified Data.Macaw.BinaryLoader as BL
@@ -77,7 +78,7 @@ ppcEntryPoints loadedBinary = do
   where
     tocEntryAddr = E.elfEntry (elf (BL.binaryFormatData loadedBinary))
     tocEntryAbsAddr :: EL.MemWidth w => MC.MemAddr w
-    tocEntryAbsAddr = MC.absoluteAddr (MC.memWord (fromIntegral tocEntryAddr))
+    tocEntryAbsAddr = MC.absoluteAddr (MC.memWord (BV.mkBV MC.memWidthNatRepr (toInteger tocEntryAddr)))
     toc = BL.archBinaryData loadedBinary
     mem = BL.memoryImage loadedBinary
 

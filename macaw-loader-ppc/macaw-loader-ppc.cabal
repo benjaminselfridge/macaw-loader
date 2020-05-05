@@ -18,6 +18,7 @@ library
                  , Data.Macaw.BinaryLoader.PPC.ELF
                  , Data.Macaw.BinaryLoader.PPC.TOC
   build-depends:       base >=4.9 && <5
+                     , bv-sized
                      , bytestring
                      , cereal
                      , containers
